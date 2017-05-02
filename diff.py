@@ -55,7 +55,7 @@ def main():
 
             to_add = parse_hotkey(item[0], item[1])
 
-            pycharm_hotkeys.add(to_add)
+            pycharm_hotkeys.update(to_add)
 
 
 def parse_hotkey(keystroke, action):
@@ -74,7 +74,7 @@ def parse_hotkey(keystroke, action):
     # Now the only key that remains is the last key (hopefully)
     to_add.key = keys[-1]
     to_add.action = action
-    return to_add
+    return [to_add]
 
 
 if __name__ == '__main__':
