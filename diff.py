@@ -37,13 +37,11 @@ class Hotkey:
         return "<{}> {}".format(" + ".join(key_parts), self.action)
 
 
-if __name__ == '__main__':
+def main():
     # Define PyCharm set
     pycharm_hotkeys = set()
     webstorm_hotkeys = set()
-
     ## Parse the keymaps
-
     # The keymaps both start with an 'editing' section
     section = 'Editing'
     with open('pycharm-current.csv', 'r', encoding='utf-8-sig') as csvfile:
@@ -55,23 +53,29 @@ if __name__ == '__main__':
                 section = item[0]
                 continue
 
-            # Define the key to add
-            to_add = Hotkey()
-
-            # Split the hotkey's elements
-            keys = [key.lower() for key in item[0].split(" + ")]
-
-            # Modifiers
-            if 'ctrl' in keys:
-                to_add.ctrl = True
-            if 'alt' in keys:
-                to_add.alt = True
-            if 'shift' in keys:
-                to_add.shift = True
-
-            # Now the only key that remains is the last key (hopefully)
-            to_add.key = keys[-1]
-
-            to_add.action = item[1]
+            to_add = parse_hotkey(item[0], item[1])
 
             pycharm_hotkeys.add(to_add)
+
+
+def parse_hotkey(keystroke, action):
+    # Define the key to add
+    to_add = Hotkey()
+    # Split the hotkey's elements
+    keys = [key.lower() for key in keystroke.split(" + ")]
+    # Modifiers
+    if 'ctrl' in keys:
+        to_add.ctrl = True
+    if 'alt' in keys:
+        to_add.alt = True
+    if 'shift' in keys:
+        to_add.shift = True
+
+    # Now the only key that remains is the last key (hopefully)
+    to_add.key = keys[-1]
+    to_add.action = action
+    return to_add
+
+
+if __name__ == '__main__':
+    main()
