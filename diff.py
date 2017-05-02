@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     # The keymaps both start with an 'editing' section
     section = 'Editing'
-    with open('pycharm-current.csv', 'r') as csvfile:
+    with open('pycharm-current.csv', 'r', encoding='utf-8-sig') as csvfile:
         reader = csv.reader(csvfile)
         for item in reader:
             # If we're at a section header, only the first element of the array will have contents
