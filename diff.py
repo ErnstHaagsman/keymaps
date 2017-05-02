@@ -25,6 +25,17 @@ class Hotkey:
     def __hash__(self):
         return hash((self.ctrl, self.alt, self.shift, self.key))
 
+    def __repr__(self):
+        key_parts = []
+        if self.ctrl:
+            key_parts.append('Ctrl')
+        if self.alt:
+            key_parts.append('Alt')
+        if self.shift:
+            key_parts.append('Shift')
+        key_parts.append(self.key.capitalize())
+        return "<{}> {}".format(" + ".join(key_parts), self.action)
+
 
 if __name__ == '__main__':
     # Define PyCharm set
